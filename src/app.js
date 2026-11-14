@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { config } from "./config.js";
 import { getDb } from "./db.js";
 import { HttpError } from "./errors.js";
+import { renderStatusPage } from "./statusPage.js";
 import { checkOrigin } from "./middleware/origin.js";
 import authRoutes from "./routes/auth.js";
 import fileRoutes from "./routes/files.js";
@@ -19,6 +20,16 @@ export function createApp() {
   app.use(express.json({ limit: "256kb" }));
   app.use(cookieParser());
   app.use(checkOrigin);
+
+  app.get("/", async (_req, res) => {
+    let dbOk = true;
+    try {
+      await getDb().command({ ping: 1 });
+    } catch {
+      dbOk = false;
+    }
+    res.status(dbOk ? 200 : 503).type("html").send(renderStatusPage({ dbOk, uptimeSeconds: process.uptime() }));
+  });
 
   app.get("/health", async (_req, res) => {
     try {

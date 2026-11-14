@@ -252,6 +252,17 @@ describe("files", () => {
 });
 
 describe("misc", () => {
+  test("the root URL serves a status page with no secrets in it", async () => {
+    const res = await fetch(`${base}/`);
+    assert.equal(res.status, 200);
+    assert.match(res.headers.get("content-type"), /text\/html/);
+    const html = await res.text();
+    assert.ok(html.includes("Solve Resumé API"));
+    assert.ok(html.includes("/api/files"));
+    assert.ok(!html.includes(config.jwtSecret));
+    assert.ok(!html.includes("mongodb"));
+  });
+
   test("health, unknown routes and bad JSON use the standard error shape", async () => {
     assert.equal((await client().get("/health")).body.ok, true);
     const nf = await client().get("/api/nope");
