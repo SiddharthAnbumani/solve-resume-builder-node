@@ -34,6 +34,7 @@ export function renderStatusPage({ dbOk, uptimeSeconds }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
 <style>
   *{box-sizing:border-box}
+  html{background:#000}
   body{margin:0;background:#000;color:#fff;font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   header{padding:28px 20px 0;text-align:center}
   .logo{font-weight:500;font-size:1.5rem;letter-spacing:.1em}
@@ -58,7 +59,7 @@ export function renderStatusPage({ dbOk, uptimeSeconds }) {
   .get{background:#dbeafe;color:#1d4ed8}.post{background:#d1fae5;color:#047857}.patch{background:#fef3c7;color:#b45309}.delete{background:#ffe4e6;color:#be123c}
   code{font-size:.82rem;word-break:break-all}
   .d{grid-column:2;color:#71717a;font-size:.8rem}
-  footer{padding:20px;text-align:center;font-size:.75rem;color:#a1a1aa;background:#fff}
+  footer{padding:20px 20px calc(20px + env(safe-area-inset-bottom));text-align:center;font-size:.75rem;color:#71717a;background:#000}
   @media(min-width:640px){h1{font-size:2.6rem}li{grid-template-columns:70px 15rem 1fr}.d{grid-column:auto}}
 </style>
 </head>

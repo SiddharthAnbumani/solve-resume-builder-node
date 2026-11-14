@@ -182,6 +182,16 @@ describe("files", () => {
     assert.equal((await a.get(`/api/files/${id}`)).body.file.name, "Untitled resume");
   });
 
+  test("every template the app offers is accepted", async () => {
+    const c = client();
+    await c.post("/api/auth/register", newUser("tpl"));
+    for (const template of ["classic", "modern", "compact", "minimal", "serif", "mono", "quiet", "bar"]) {
+      const r = await c.post("/api/files", { template, data: sampleData() });
+      assert.equal(r.status, 201, template);
+      assert.equal(r.body.file.template, template);
+    }
+  });
+
   test("validation: bad values are rejected, unknown keys dropped", async () => {
     const c = client();
     await c.post("/api/auth/register", newUser("val"));

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const TEMPLATES = ["classic", "modern", "compact"];
+export const TEMPLATES = ["classic", "modern", "compact", "minimal", "serif", "mono", "quiet", "bar"];
 export const FONTS = ["default", "montserrat", "inter", "arial"];
 export const STATUSES = ["draft", "finished"];
 
